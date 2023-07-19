@@ -9,7 +9,7 @@ using namespace std;
 class Solution{
 public:	
 	// calculate the maximum sum with out adjacent
-		 int f(int ind,int *nums,vector<int>& dp){
+		 int f(int ind,vector<int>&nums,vector<int>& dp){
        
         if(ind==0) return nums[ind];
         if(ind<0) return 0;
@@ -19,12 +19,11 @@ public:
 
         return dp[ind]=max(p,np);
  }
-    int findMaxSum(int *nums, int n){
-    // Write your code here.
-      
+    int findMaxSum(vector<int>&nums, int n) {
        vector<int> dp(n,-1);
        return f(n-1,nums,dp);
-}
+	    // code here
+	}
 };
 
 //{ Driver Code Starts.
@@ -35,7 +34,7 @@ int main() {
     while (t--) {
         int n;
         cin >> n;
-        int arr[n];
+        vector<int>arr(n);
         for (int i = 0; i < n; i++) {
             cin >> arr[i];
         }
