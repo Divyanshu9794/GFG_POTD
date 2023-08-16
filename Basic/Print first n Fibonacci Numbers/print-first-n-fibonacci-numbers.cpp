@@ -12,14 +12,14 @@ class Solution
 {
     public:
     //Function to return list containing first n fibonacci numbers.
-     vector<long long> printFibb(int n) 
+    vector<long long> printFibb(int n) 
     {
+        vector< long long > printFibb( int n ) ;
         vector< long long > fib( n, 1LL );
-        for ( size_t i{ 2 }; i < n; ++i ){
-             fib[ i ] = fib[ i-1 ] + fib[ i-2 ];
-        }
+        for ( size_t i{ 2 }; i < n; ++i )
+            fib[ i ] = fib[ i-1 ] + fib[ i-2 ];
         return fib;
-    }
+        }
 };
 
 //{ Driver Code Starts.
