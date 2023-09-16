@@ -9,46 +9,44 @@ using namespace std;
 
 class Solution{
 public:
-
-        bool isPalindrome (string & s, int i, int j){
-        while(i<j){
-            if(s[i]!=s[j]) return false;
-            i++; j--;
+bool isPalindrome(int i, int j, string s){
+        while(i <= j){
+            if(s[i] != s[j]){
+                return false;
+            }
+            i++;
+            j--;
         }
         return true;
     }
-    
-
-    int solve (string & s, int i, int j, vector<int> & dp){    
+    int palindromicPartition(string str)
+    {
+        // code here
         
-        if(i>=j or isPalindrome(s, i, j)) return 0;
-        
-        if(dp[i]!=-1) return dp[i];
-        
-        int ans = INT_MAX;
-        
-        for(int k=i; k<j; k++){
-           
-            
-            if(isPalindrome(s, i, k)){                         
-                int temp = solve (s, k+1, j, dp) + 1;
-                ans = min (ans, temp);
+        int n = str.length();
+        int dp[n][n];
+        for(int i=0;i<n;i++){
+            dp[i][i]=0;
+        }
+        for(int gap =1;gap<n;gap++){
+            for(int i=0;i+gap<n;i++){
+                int j=i+gap;
+                if(isPalindrome(i,j,str)){
+                    dp[i][j]=0;
+                }
+                else{
+                    dp[i][j]=INT_MAX;
+                    for(int k=i;k<j;k++){
+                        dp[i][j]=min(dp[i][j],1+dp[i][k]+dp[k+1][j]);
+                    }
+                    
+                }
+                
             }
         }
-        
-        return dp[i] = ans;
+        return dp[0][n-1];
     }
-    
 
-    int palindromicPartition(string s)
-    {
-        int n = s.length();
-       
-        vector<int> dp (n+1, -1);   
-            
-        return solve (s, 0, n-1, dp);
-        // code here
-    }
 };
 
 //{ Driver Code Starts.
