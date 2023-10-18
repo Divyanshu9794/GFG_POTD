@@ -9,7 +9,7 @@ using namespace std;
 // User function Template for C++
 
 class Solution {
-  private:
+    private:
     
     bool dfscheck(int node,vector<int> adj[],int vis[],int pathvis[],int check[]){
         vis[node]=1;
@@ -53,6 +53,7 @@ class Solution {
         return safenode;
     }
 };
+
 
 
 //{ Driver Code Starts.
