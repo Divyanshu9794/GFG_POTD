@@ -6,6 +6,7 @@ using namespace std;
 class Solution{
 		
 
+
 	public:
 	int maxSumIS(int arr[], int n)  
 	{  
@@ -24,7 +25,7 @@ class Solution{
 	        res=max(res,msis[i]);
 	    }
 	    return res;
-	}  
+	}   
 };
 
 //{ Driver Code Starts.
