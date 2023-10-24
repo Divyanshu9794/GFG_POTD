@@ -9,45 +9,77 @@ using namespace std;
 
 class Solution{
 public:
-bool isPalindrome(int i, int j, string s){
-        while(i <= j){
-            if(s[i] != s[j]){
-                return false;
+
+    int pal(string &s, int i, int j)
+    {
+        while(i < j)
+        {
+            if(s[i] != s[j])
+            {
+                return 0;
             }
             i++;
             j--;
         }
-        return true;
+        return 1;
     }
-    int palindromicPartition(string str)
+    
+    int dp[501][501];
+    
+    int answer(string &str, int i, int j, vector<vector<int>>&pre)
     {
-        // code here
+        if(i >= j)
+            return 0;
         
-        int n = str.length();
-        int dp[n][n];
-        for(int i=0;i<n;i++){
-            dp[i][i]=0;
-        }
-        for(int gap =1;gap<n;gap++){
-            for(int i=0;i+gap<n;i++){
-                int j=i+gap;
-                if(isPalindrome(i,j,str)){
-                    dp[i][j]=0;
-                }
-                else{
-                    dp[i][j]=INT_MAX;
-                    for(int k=i;k<j;k++){
-                        dp[i][j]=min(dp[i][j],1+dp[i][k]+dp[k+1][j]);
-                    }
-                    
-                }
-                
+        
+        if(pre[i][j] == 1)
+            return 0;
+        
+        if(dp[i][j] != -1)
+            return dp[i][j];
+        
+        int mini = 1000;
+        
+        for(int k = i; k < j; k++)
+        {
+            int left = 1000, right = 1000;
+            if(dp[i][k] != -1)
+                left = dp[i][k];
+            else
+            {
+                left = answer(str,i,k,pre);
+                dp[i][k] = left;
             }
+            if(dp[k+1][j] != -1)
+                right = dp[k+1][j];
+            else
+            {
+                right = answer(str,k+1,j,pre);
+                dp[k+1][j] = right;
+            }
+            mini = min(mini, 1 + left + right);
         }
-        return dp[0][n-1];
+        return dp[i][j] = mini;
     }
 
+    int palindromicPartition(string &str)
+    {
+        // code here
+        int n = (int)str.length();
+        vector<vector<int>>pre(n,vector<int>(n,0));
+        
+        for(int i= 0; i < n; i++)
+        {
+            for(int j = i; j < n; j++)
+            {
+                pre[i][j] = pal(str,i,j);
+            }
+        }
+        memset(dp, -1, sizeof dp);
+        return answer(str, 0, n-1, pre);
+    }
 };
+
 
 //{ Driver Code Starts.
 
