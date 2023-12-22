@@ -6,13 +6,11 @@
 using namespace std;
 
 // } Driver Code Ends
-
-
 class Solution
 {
     public:
     //Function to find all elements in array that appear more than n/k times.
-    int countOccurence(int arr[], int n, int k) {
+   int countOccurence(int arr[], int n, int k) {
         // Your code here
          map<int, int>mp;
 
@@ -45,6 +43,7 @@ class Solution
 
     }
 };
+
 
 
 //{ Driver Code Starts.
