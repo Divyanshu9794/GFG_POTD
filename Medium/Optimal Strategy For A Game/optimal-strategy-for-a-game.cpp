@@ -7,19 +7,22 @@ using namespace std;
 //Function to find the maximum possible amount of money we can win.
 class Solution{
     public:
-    long long maximumAmount(int arr[], int n){
-        long long dp[n][n];
-        for(int i=0;i<n-1;i++){
-            dp[i][i+1]=max(arr[i],arr[i+1]);
+    long long fun(int i,int j,int arr[], vector<vector<long long>> &dp)
+    {
+        if(i>j)
+        {
+            return 0;
         }
-        for(int gap=3;gap<n;gap=gap+2){
-            for(int i=0;i+gap<n;i++){
-                int j= i+gap;
-                dp[i][j]=max(arr[i]+min(dp[i+2][j],dp[i+1][j-1]),
-                             arr[j]+min(dp[i+1][j-1],dp[i][j-2]));
-            }
-        }
-        return dp[0][n-1];
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        long long t1=arr[i]+min(fun(i+2,j,arr,dp),fun(i+1,j-1,arr,dp));
+        long long t2=arr[j]+min(fun(i,j-2,arr,dp),fun(i+1,j-1,arr,dp));
+        
+        return dp[i][j]=max(t1,t2);
+    }
+    long long maximumAmount(int n, int arr[]){
+        vector<vector<long long>> dp(n,vector<long long>(n,-1));
+        return fun(0,n-1,arr,dp);
     }
 };
 
@@ -37,7 +40,7 @@ int main()
 		for(int i=0;i<n;i++)
 		cin>>a[i];
 		Solution ob;
-		cout<< ob.maximumAmount(a,n)<<endl;
+		cout<< ob.maximumAmount(n,a)<<endl;
 	}
 	return 0;
 }
