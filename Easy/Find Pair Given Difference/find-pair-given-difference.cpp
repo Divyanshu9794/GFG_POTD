@@ -1,45 +1,73 @@
 //{ Driver Code Starts
-#include<bits/stdc++.h>
- 
-using namespace std; 
+#include <bits/stdc++.h>
+using namespace std;
 
-
-bool findPair(int arr[], int size, int n);
-
-int main()
-{
-    int t;
-    cin>>t;
-    while(t--)
-    {
-        int l,n;
-        cin>>l>>n;
-        int arr[l];
-        for(int i=0;i<l;i++)
-            cin>>arr[i];
-        if(findPair(arr, l, n))
-            cout<<1<<endl;
-        else cout<<"-1"<<endl;
+class Array {
+  public:
+    template <class T>
+    static void input(vector<T> &A, int n) {
+        for (int i = 0; i < n; i++) {
+            scanf("%d ", &A[i]);
+        }
     }
-    
-  
-    return 0;
-}
+
+    template <class T>
+    static void print(vector<T> &A) {
+        for (int i = 0; i < A.size(); i++) {
+            cout << A[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+
 // } Driver Code Ends
 
-
-bool findPair(int arr[], int size, int n){
-  sort(arr,arr+size);
-    int left=0,right=1;
-    while(left<=right && right<=size-1){
-        int diff=arr[right]-arr[left];
-        if(diff==n && left!=right)
-        return true;
-        else if(diff>n)
-        left++;
-        else
-        right++;
+class Solution {
+  public:
+    int findPair(int n, int x, vector<int> &arr) {
+        // code here
+        unordered_map<int,int>m;
+        for(auto it:arr){
+            m[it]++;
+            if(x==0 && m[it]==2){
+                return 1;
+            }
+        }
+        if(x==0){
+            return -1;
+        }
+        for(auto it:arr){
+            if(m.find(x+it)!=m.end()){
+                return 1;
+            }
+        }
+        return -1;
     }
-    return false;
-    
+};
+
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    scanf("%d ", &t);
+    while (t--) {
+
+        int n;
+        scanf("%d", &n);
+
+        int x;
+        scanf("%d", &x);
+
+        vector<int> arr(n);
+        Array::input(arr, n);
+
+        Solution obj;
+        int res = obj.findPair(n, x, arr);
+
+        cout << res << endl;
+    }
 }
+
+// } Driver Code Ends
