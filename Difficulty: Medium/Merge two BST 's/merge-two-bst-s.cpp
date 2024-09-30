@@ -92,6 +92,18 @@ struct Node {
     }
 };
 */
+/*
+struct Node {
+    int data;
+    Node *left;
+    Node *right;
+
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+*/
 class Solution {
   public:
     // Function to return a list of integers denoting the node
